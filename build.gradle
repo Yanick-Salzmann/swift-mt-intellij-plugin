@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.intellij' version '0.4.18'
+    id "org.jetbrains.grammarkit" version "2020.1.2"
+}
+
+apply plugin: 'org.jetbrains.grammarkit'
+import org.jetbrains.grammarkit.tasks.*
+
+group 'com.six.plugins.intellij'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+// See https://github.com/JetBrains/gradle-intellij-plugin/
+intellij {
+    version '2019.3.4'
+}
+patchPluginXml {
+    changeNotes """
+      Add change notes here.<br>
+      <em>most HTML tags may be used</em>"""
+}
+
+sourceSets.main.java.srcDirs += ['src/main/gnrtd']
+
+task generateLexer(type: GenerateLexer) {
+    source = "src/main/java/com/six/plugins/intellij/swift/mt/syntax/SwiftMtSyntaxHighlighter.flex"
+    targetDir = "src/main/gnrtd/com/six/plugins/intellij/swift/mt/syntax"
+    targetClass = "SwiftMtSyntaxHighlighter"
+    purgeOldFiles = true
+}
+
+compileJava.dependsOn += generateLexer

@@ -1,0 +1,18 @@
+<idea-plugin>
+    <id>com.six.plugins.intellij.swift.mt</id>
+    <name>SWIFT MT Language Support</name>
+    <vendor email="GCI.Comms@six-group.com" url="www.six-group.com">SIX</vendor>
+
+    <description><![CDATA[
+    Plugin to support the syntax highlighting of Swift MT messages in IntelliJ
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <fileType name="Swift MT" implementationClass="com.six.plugins.intellij.swift.mt.language.SwiftMtFileType" language="swift-mt-language"/>
+        <lang.syntaxHighlighterFactory language="swift-mt-language" implementationClass="com.six.plugins.intellij.swift.mt.syntax.SwiftMtHighlighter$Factory"/>
+    </extensions>
+
+    <actions/>
+</idea-plugin>
